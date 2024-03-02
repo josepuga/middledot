@@ -1,0 +1,21 @@
+{
+    
+    "configurations": [
+            {
+                    "name": "middle-debug",
+                    "type": "cppdbg",
+                    "request": "launch",
+                    "miDebuggerServerAddress": "127.0.0.1:1234",
+                    "program": "${workspaceFolder}/bin/middle.elf",
+                    "args": [],
+                    "stopAtEntry": false,
+                    "cwd": "${workspaceFolder}",
+                    "environment": [],
+                    "externalConsole": false,
+                    "logging": {
+                            "engineLogging": false
+                    },
+                    "MIMode": "gdb"
+            }
+    ]
+}

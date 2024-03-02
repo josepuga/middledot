@@ -1,0 +1,42 @@
+# Makefile TEST GENÉRICO para Middle·Dot
+# Modificar sólo TARGET y SRCS para adaptarlo a otros tests.
+# (c)José Puga 2024. Under GLP3 License.
+# Manual GNU/Makefile: https://www.gnu.org/software/make/manual/make.html
+TARGET	:= test-mm
+CC		:= gcc
+CXX		:= g++
+OBJ		:= ./obj
+SRC		:= ./src
+BIN		:= ./bin
+INC		:= $(SRC)/include
+SRCS	:= $(SRC)/memory.cpp \
+			$(SRC)/memory_operators.cpp \
+			$(SRC)/test-mm.cpp
+OBJS	:= $(patsubst $(SRC)/%.cpp,$(OBJ)/%.o,$(SRCS))
+
+RM		:= rm -f
+MKDIR	:= mkdir
+
+INCFLAGS:= -I $(SRC)/include
+CXXFLAGS:= -DTEST $(INCFLAGS) -O2 -Wall -Wextra -Wpedantic \
+
+.PHONY: all run clean
+default: all
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS) | $(BIN)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(BIN)/$(TARGET)
+
+$(OBJS): $(OBJ)/%.o: $(SRC)/%.cpp | $(OBJ)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(OBJ) $(BIN):
+	$(MKDIR) $@
+
+clean:
+	$(RM) $(OBJS)
+	$(RM) $(BIN)/$(TARGET)
+
+run:
+	$(BIN)/$(TARGET)
